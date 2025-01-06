@@ -35,7 +35,8 @@ public enum ApplicationErrorEnum {
     CANCELED_STATUS_NOT_FOUND(HttpStatus.NOT_FOUND,"Canceled status not found"),
 
     LOW_INVENTORY(HttpStatus.NOT_FOUND, "Low Inventory"),
-    MENU_NOT_FOUND(HttpStatus.NOT_FOUND , "menu not found");
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "Menu not found" );
+    
 
     private final HttpStatus status;
     private final String message;
