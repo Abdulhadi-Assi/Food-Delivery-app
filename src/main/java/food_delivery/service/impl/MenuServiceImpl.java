@@ -96,7 +96,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	private void updateMenuItem(MenuItemRequest item) {
-		 menuItemService.updateMenuItem(item.getMenuItemId(), item);
+		 menuItemService.updateMenuItem(item.getMenuId(), item);
 		
 	}
 }
