@@ -1,16 +1,16 @@
 package food_delivery.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
-
 @Data
+@AllArgsConstructor
 public class MenuItemRequest {
-	
-    private Long menuItemId;
+    private Long menuId;
     private String itemName;
-    private BigDecimal price;
     private String description;
-    private Integer quantity;
+    private BigDecimal price;
+    private int quantity;
 }
