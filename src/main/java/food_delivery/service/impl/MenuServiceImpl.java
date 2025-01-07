@@ -8,7 +8,9 @@ import food_delivery.model.MenuItem;
 import food_delivery.model.Restaurant;
 import food_delivery.repository.MenuRepository;
 import food_delivery.repository.RestaurantRepository;
+import food_delivery.request.MenuItemRequest;
 import food_delivery.request.MenuRequest;
+import food_delivery.request.UpdateMenuRequest;
 import food_delivery.response.MenuResponse;
 import food_delivery.service.MenuItemService;
 import food_delivery.service.MenuService;
@@ -16,8 +18,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -74,4 +78,25 @@ public class MenuServiceImpl implements MenuService {
 
         menuRepository.delete(menu);
     }
+
+    @Transactional
+	@Override
+	public void updateMenu(Long menuId,UpdateMenuRequest menuRequest) {
+    	Menu menu = menuRepository.findById(menuId).orElseThrow(()->new BusinessException(ApplicationErrorEnum.MENU_NOT_FOUND));
+    	
+    	menu.setMenuName(menuRequest.getMenuName());
+    	menu.setDescription(menuRequest.getDescription());
+    	
+    
+    	// Update menu items if present
+        if (menuRequest.getMenuItemsItems() != null && !menuRequest.getMenuItemsItems().isEmpty()) {
+            menuRequest.getMenuItemsItems().forEach(this::updateMenuItem);
+        }
+    	menuRepository.save(menu);
+	}
+
+	private void updateMenuItem(MenuItemRequest item) {
+		 menuItemService.updateMenuItem(item.getMenuItemId(), item);
+		
+	}
 }

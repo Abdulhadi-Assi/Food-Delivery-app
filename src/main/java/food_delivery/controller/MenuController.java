@@ -1,6 +1,7 @@
 package food_delivery.controller;
 
 import food_delivery.request.MenuRequest;
+import food_delivery.request.UpdateMenuRequest;
 import food_delivery.response.MenuResponse;
 import food_delivery.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,14 @@ public class MenuController {
     {
         menuService.deleteMenuById(id);
         return ResponseEntity.ok().build();
+    }
+    
+    // Update menu by ID
+    @PutMapping("/{menuId}")
+    public ResponseEntity<?> updateMenu(@PathVariable Long menuId, @RequestBody UpdateMenuRequest menuRequest) {
+         menuService.updateMenu(menuId, menuRequest);
+        
+         return ResponseEntity.noContent().build();
+
     }
 }

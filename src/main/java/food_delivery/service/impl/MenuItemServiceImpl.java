@@ -6,6 +6,7 @@ import food_delivery.exception.BusinessException;
 import food_delivery.model.CartItem;
 import food_delivery.model.MenuItem;
 import food_delivery.repository.MenuItemRepository;
+import food_delivery.request.MenuItemRequest;
 import food_delivery.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -68,4 +69,17 @@ public class MenuItemServiceImpl implements MenuItemService {
                 .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
         menuItemRepository.deleteById(id);
     }
+
+	@Override
+	public void updateMenuItem(Long menuItemId, MenuItemRequest menuItemRequest) {
+		MenuItem existingMenuItem = menuItemRepository.findById(menuItemId)
+                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
+
+        existingMenuItem.setItemName(menuItemRequest.getItemName());
+        existingMenuItem.setPrice(menuItemRequest.getPrice());
+        existingMenuItem.setDescription(menuItemRequest.getDescription());
+        existingMenuItem.setQuantity(menuItemRequest.getQuantity());
+        menuItemRepository.save(existingMenuItem);
+		
+	}
 }

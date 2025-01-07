@@ -3,6 +3,8 @@ package food_delivery.controller;
 import food_delivery.dto.MenuItemDTO;
 import food_delivery.mapper.MenuItemMapper;
 import food_delivery.model.MenuItem;
+import food_delivery.request.MenuItemRequest;
+import food_delivery.request.MenuRequest;
 import food_delivery.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +36,13 @@ public class MenuItemController {
         menuItemService.deleteMenuItemById(id);
         return ResponseEntity.ok("Menu item with ID " + id + " has been deleted successfully.");
 
+    }
+    
+    // Update menu Item by ID
+    @PutMapping("/{menuItemId}")
+    public ResponseEntity<?> updateMenuItem(@PathVariable Long menuItemId, @RequestBody MenuItemRequest menuItemRequest) {
+    	menuItemService.updateMenuItem(menuItemId, menuItemRequest);
+        
+        return ResponseEntity.ok().build();
     }
 }

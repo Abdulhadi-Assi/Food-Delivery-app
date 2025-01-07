@@ -2,6 +2,7 @@ package food_delivery.service;
 
 import food_delivery.model.CartItem;
 import food_delivery.model.MenuItem;
+import food_delivery.request.MenuItemRequest;
 
 import java.util.List;
 
@@ -14,5 +15,8 @@ public interface MenuItemService {
     List<MenuItem> getMenuItemsByMenuId(Long menuId);
 
     void deleteMenuItemById(Long id);
+    
+    
+    void updateMenuItem(Long id, MenuItemRequest menuItemRequest);
 
 }
