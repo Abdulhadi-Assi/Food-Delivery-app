@@ -84,11 +84,13 @@ public class MenuServiceImpl implements MenuService {
 	public void updateMenu(Long menuId,UpdateMenuRequest menuRequest) {
     	Menu menu = menuRepository.findById(menuId).orElseThrow(()->new BusinessException(ApplicationErrorEnum.MENU_NOT_FOUND));
     	
-    	menu.setMenuName(menuRequest.getMenuName());
-    	menu.setDescription(menuRequest.getDescription());
-    	
+    	if (menuRequest.getMenuName() != null && !menuRequest.getMenuName().isEmpty()) {
+    		menu.setMenuName(menuRequest.getMenuName());
+        }
+    	if (menuRequest.getDescription() != null && !menuRequest.getDescription().isEmpty()) {
+    		menu.setDescription(menuRequest.getDescription());
+        }
     
-    	// Update menu items if present
         if (menuRequest.getMenuItemsItems() != null && !menuRequest.getMenuItemsItems().isEmpty()) {
             menuRequest.getMenuItemsItems().forEach(this::updateMenuItem);
         }
