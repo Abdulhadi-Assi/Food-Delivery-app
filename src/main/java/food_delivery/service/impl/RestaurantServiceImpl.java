@@ -7,18 +7,15 @@ import food_delivery.repository.*;
 import food_delivery.request.RestaurantRequest;
 import food_delivery.service.AddressService;
 import food_delivery.service.RestaurantDetailsService;
-import food_delivery.exception.ApplicationErrorEnum;
-import food_delivery.exception.BusinessException;
 import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -90,37 +87,23 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void updateRestaurant(UpdateRestaurantRequest updateRestaurantRequest) {
-        Restaurant restaurant = restaurantRepository.findById(updateRestaurantRequest.getId()).orElseThrow(
-                ()-> new BusinessException(ApplicationErrorEnum.RESTAURANT_NOT_FOUND)
-        );
+		Restaurant restaurant = getRestaurant(updateRestaurantRequest.getId());
 
-		Address address = restaurant.getAddress();
-		if(address == null) {
-            address = new Address();
-			address.setRestaurant(restaurant);
-        }
-		address.setCity(updateRestaurantRequest.getAddress().getCity());
-		address.setCountry(updateRestaurantRequest.getAddress().getCountry());
-		address.setPostalCode(updateRestaurantRequest.getAddress().getPostalCode());
-		address.setAddressLine1(updateRestaurantRequest.getAddress().getAddressLine1());
+		Address updatedAddress =  addressService.updateAddress(restaurant.getAddress() , updateRestaurantRequest.getAddress());
+		restaurant.setAddress(updatedAddress);
 
-        RestaurantDetails restaurantDetails = restaurant.getRestaurantDetails();
-		if(restaurantDetails == null)
-		{
-			restaurantDetails = new RestaurantDetails();
-			restaurantDetails.setRestaurant(restaurant);
-		}
+		RestaurantDetails updatedRestaurantDetails = restaurantDetailsService.UpdateRestaurantDetails(restaurant.getRestaurantDetails() , updateRestaurantRequest.getRestaurantDetails());
+		restaurant.setRestaurantDetails(updatedRestaurantDetails);
 
-		restaurantDetails.setDescription(updateRestaurantRequest.getRestaurantDetails().getDescription());
-        restaurantDetails.setCapacity(updateRestaurantRequest.getRestaurantDetails().getCapacity());
-
-
-        restaurant.setName(updateRestaurantRequest.getName());
-        restaurant.setPhoneNumber(updateRestaurantRequest.getPhoneNumber());
-
-        restaurant.setRestaurantDetails(restaurantDetails);
-		restaurant.setAddress(address);
+		Optional.ofNullable(updateRestaurantRequest.getName()).ifPresent(restaurant::setName);
+		Optional.ofNullable(updateRestaurantRequest.getPhoneNumber()).ifPresent(restaurant::setPhoneNumber);
 
         restaurantRepository.save(restaurant);
+	}
+
+	private Restaurant getRestaurant(Long RestaurantId) {
+		Restaurant restaurant = restaurantRepository.findById(RestaurantId)
+				.orElseThrow(()-> new BusinessException(ApplicationErrorEnum.RESTAURANT_NOT_FOUND));
+		return restaurant;
 	}
 }

@@ -1,4 +1,4 @@
-package food_delivery.dto;
+package food_delivery.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RestaurantDetailsDTO {
+public class RestaurantDetailsRequest {
 
     private String description;
 
