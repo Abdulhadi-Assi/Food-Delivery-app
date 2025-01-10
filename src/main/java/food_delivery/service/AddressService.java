@@ -6,4 +6,6 @@ import food_delivery.request.AddressRequest;
 public interface AddressService {
 
 	Address createAddress(AddressRequest address);
+
+    Address updateAddress(Address address, AddressRequest addressRequest);
 }
