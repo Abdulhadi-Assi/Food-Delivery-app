@@ -9,7 +9,6 @@ import food_delivery.model.MenuItem;
 import food_delivery.repository.MenuItemRepository;
 import food_delivery.request.MenuItemRequest;
 import food_delivery.repository.MenuRepository;
-import food_delivery.request.MenuItemRequest;
 import food_delivery.response.MenuItemResponse;
 import food_delivery.service.MenuItemService;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +28,11 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Transactional
     public void reduceInventory(List<CartItem> itemList) {
         itemList.forEach(cartItem -> {
-            Long id = cartItem.getMenuItem().getMenuItemId();
-            MenuItem menuItem = menuItemRepository.findById(id)
-                    .orElseThrow(()->new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
+            Long menuItemId = cartItem.getMenuItem().getMenuItemId();
+            MenuItem menuItem = getMenuItem(menuItemId);
 
             if(menuItem.getQuantity() < cartItem.getQuantity()) {
-                throw new BusinessException(ApplicationErrorEnum.LOW_INVENTORY);
-//                throw new RuntimeException("not enough inventory for item with id: "+ menuItem.getMenuItemId());
+                throw new RuntimeException("not enough inventory for item with id: " + menuItem.getMenuItemId());
             }
             menuItem.setQuantity(menuItem.getQuantity() - cartItem.getQuantity());
             menuItemRepository.save(menuItem);
@@ -44,8 +41,7 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public MenuItem getMenuItemById(Long id,Long userId) {
-        MenuItem menuItem =  menuItemRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
+        MenuItem menuItem = getMenuItem(id);
 
         RestaurantOwnerDTO restaurantOwnerDTO = menuItemRepository.findRestaurantOwnerIdByMenuItemId(id);
 
@@ -63,6 +59,13 @@ public class MenuItemServiceImpl implements MenuItemService {
 
         return menuItem;
     }
+
+    private MenuItem getMenuItem(Long id) {
+        MenuItem menuItem =  menuItemRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.MENU_ITEM_NOT_FOUND));
+        return menuItem;
+    }
+
     @Override
     public List<MenuItem> getMenuItemsByMenuId(Long menuId) {
         return menuItemRepository.findByMenuId(menuId);
