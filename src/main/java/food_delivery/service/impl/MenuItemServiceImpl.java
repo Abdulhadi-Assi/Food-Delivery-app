@@ -110,4 +110,9 @@ public class MenuItemServiceImpl implements MenuItemService {
                 menuItem.getDescription(),
                 menuItem.getQuantity());
     }
+
+    @Override
+    public void setFkMenuIdToNull(Long menuId) {
+        menuItemRepository.setFkMenuIdToNull(menuId);
+    }
 }

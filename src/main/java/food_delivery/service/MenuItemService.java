@@ -21,4 +21,6 @@ public interface MenuItemService {
     void updateMenuItem(Long id, MenuItemRequest menuItemRequest);
 
     MenuItemResponse addMenuItem(MenuItemRequest menuItemRequest);
+
+    void setFkMenuIdToNull(Long menuId);
 }
