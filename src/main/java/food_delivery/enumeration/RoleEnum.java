@@ -1,5 +1,8 @@
 package food_delivery.enumeration;
 
+import lombok.Getter;
+
+@Getter
 public enum RoleEnum {
     ROLE_ADMIN(1L),
     ROLE_RESTAURANT_OWNER(2L),
