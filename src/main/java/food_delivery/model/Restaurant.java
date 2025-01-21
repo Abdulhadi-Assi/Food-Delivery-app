@@ -1,6 +1,5 @@
 package food_delivery.model;
 
-
 import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -40,5 +39,6 @@ public class Restaurant implements Serializable {
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
-    
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted = false; // Default to false
 }

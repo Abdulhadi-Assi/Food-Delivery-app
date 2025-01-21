@@ -5,7 +5,6 @@ import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +32,10 @@ public class RestaurantController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteRestaurant(@PathVariable Long id){
+        restaurantService.deleteRestaurantById(id);
+    }
 }
 
    

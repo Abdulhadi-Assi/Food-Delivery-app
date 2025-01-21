@@ -1,6 +1,5 @@
 package food_delivery.request;
 
-import food_delivery.dto.RestaurantDetailsDTO;
 import lombok.Getter;
 import javax.validation.constraints.*;
 
@@ -16,7 +15,7 @@ public class UpdateRestaurantRequest {
 
     private String phoneNumber;
 
-    private RestaurantDetailsDTO restaurantDetails;
+    private RestaurantDetailsRequest restaurantDetails;
 
     private AddressRequest address;
 }
