@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 public class CartItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_item_id")
-    private Long cartItemId;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "cart_id",nullable = false)
     private Cart cart;
 
     @ManyToOne
@@ -33,6 +33,4 @@ public class CartItem implements Serializable {
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-
-
 }

@@ -7,7 +7,7 @@ import food_delivery.dto.CartDTO;
 import food_delivery.dto.CartItemDTO;
 import food_delivery.dto.CartItemRequestDTO;
 import food_delivery.mapper.CartItemMapper;
-import food_delivery.mapper.cartMapper;
+import food_delivery.mapper.CartMapper;
 import food_delivery.model.Cart;
 import food_delivery.model.Customer;
 import food_delivery.repository.CartRepository;
@@ -31,7 +31,7 @@ public class CartService {
 		cart.setItems(null);
 		Cart newcart = cartRepository.save(cart);
 		
-		return cartMapper.toDTO(newcart) ;	
+		return CartMapper.toDTO(newcart) ;
 	}
 	
 	public List<CartItemDTO> addItemToCart(CartItemRequestDTO cartItemRequest) {
@@ -41,9 +41,9 @@ public class CartService {
 		Cart cart = getCustomerCart(cartItemRequest.getCustomerId());
 		
 		if(cart == null) {
-			Cart newCart = new Cart();
+			cart = new Cart();
 			cart.setCustomer(customer);
-			cart = saveCart(newCart);
+			cart = saveCart(cart);
 		}
 		
 		return CartItemMapper.toDtos(cart.getItems());
@@ -55,8 +55,8 @@ public class CartService {
 	}
 	
 	
-	public Cart getCustomerCart(Long CustomerId) {
-		Customer customer = customerRepository.findById(CustomerId).orElseThrow(()-> new RuntimeException("Customer not found"));
+	public Cart getCustomerCart(Long customerId) {
+		Customer customer = customerRepository.findById(customerId).orElseThrow(()-> new RuntimeException("Customer not found"));
 	    Cart cart = customer.getCart();
 		if(cart == null) throw new RuntimeException("customer has no cart");
 		return cart;	

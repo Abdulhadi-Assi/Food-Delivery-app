@@ -20,7 +20,4 @@ public class CartItemRequestDTO {
 	private Integer quantity;
 	
 	private String itemDescription;
-	
-	
-
 }
