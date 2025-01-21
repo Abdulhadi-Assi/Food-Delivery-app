@@ -1,14 +1,12 @@
 package food_delivery.model;
 
 import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 
 
 @Data
@@ -38,13 +36,5 @@ public class MenuItem implements Serializable {
 
     @Column(name = "quantity")
     private Integer quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "ORDER_ID")
-    private Order order;
-
-    @ManyToOne
-    @JoinColumn(name = "cart_item_id")
-    private CartItem cartItem;
 
 }

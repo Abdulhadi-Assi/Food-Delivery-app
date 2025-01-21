@@ -16,4 +16,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long>{
     @Query(value = "DELETE FROM menu WHERE restaurant_id = :restaurantId", nativeQuery = true)
     void deleteAllMenusByRestaurantId(@Param("restaurantId") Long restaurantId);
 
+
+    Long countByRestaurant_Id(Long id);
 }
