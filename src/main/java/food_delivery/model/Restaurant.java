@@ -4,7 +4,6 @@ import java.util.List;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
@@ -14,19 +13,18 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Getter
 @Table(name = "restaurant")
 public class Restaurant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "restaurant_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "rest_Details_id" , referencedColumnName = "restaurant_details_id")
+    @JoinColumn(name = "restaurant_details_id")
     private RestaurantDetails restaurantDetails;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

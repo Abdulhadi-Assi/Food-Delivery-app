@@ -11,14 +11,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="RESTAURANT_DETAILS")
+@Table(name="restaurant_details")
 public class RestaurantDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "restaurant_details_id")
+    @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurantDetails")
+    @OneToOne(mappedBy = "restaurantDetails")
     private Restaurant restaurant;
 
     @Column(name = "description")
