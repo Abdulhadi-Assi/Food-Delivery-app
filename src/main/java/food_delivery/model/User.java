@@ -24,7 +24,7 @@ public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private Long userId;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -55,7 +55,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "verification_code")
     private String verificationCode;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER , mappedBy = "user")
     private List<UserRole> userRoles;
 
 

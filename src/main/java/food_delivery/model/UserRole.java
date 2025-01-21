@@ -18,10 +18,12 @@ public class UserRole implements Serializable {
     private UserRoleId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId")
     @JoinColumn(name = "user_id", insertable = false, updatable = false)  // Don't modify the foreign key directly
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("roleId")
     @JoinColumn(name = "role_id", insertable = false, updatable = false)  // Don't modify the foreign key directly
     private Role role;
 
