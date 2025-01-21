@@ -10,14 +10,15 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="CUSTOMER")
+@Table(name="customer")
 public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "id")
     private Long id;
 
     @OneToOne(mappedBy ="customer")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @OneToOne(fetch = FetchType.LAZY)
