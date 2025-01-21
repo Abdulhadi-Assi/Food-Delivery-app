@@ -1,5 +1,6 @@
 package food_delivery.service;
 
+import food_delivery.model.Restaurant;
 import food_delivery.request.UpdateRestaurantRequest;
 
 import food_delivery.request.RestaurantRequest;
@@ -10,4 +11,6 @@ public interface RestaurantService {
     void deleteRestaurantById(Long id);
 
     void updateRestaurant(UpdateRestaurantRequest updateRestaurantRequest);
+
+    Restaurant getRestaurant(Long restaurantId);
 }

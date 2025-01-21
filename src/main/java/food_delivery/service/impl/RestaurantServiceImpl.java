@@ -100,7 +100,8 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantRepository.save(restaurant);
 	}
 
-	private Restaurant getRestaurant(Long restaurantId) {
+	@Override
+	public Restaurant getRestaurant(Long restaurantId) {
 		return restaurantRepository.findById(restaurantId)
 				.orElseThrow(()-> new BusinessException(ApplicationErrorEnum.RESTAURANT_NOT_FOUND));
 	}

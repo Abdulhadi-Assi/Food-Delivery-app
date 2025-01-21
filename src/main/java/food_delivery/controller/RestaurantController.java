@@ -1,5 +1,7 @@
 package food_delivery.controller;
 
+import food_delivery.mapper.RestaurantMapper;
+import food_delivery.model.Restaurant;
 import food_delivery.request.RestaurantRequest;
 import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
@@ -36,6 +38,14 @@ public class RestaurantController {
     public void deleteRestaurant(@PathVariable Long id){
         restaurantService.deleteRestaurantById(id);
     }
+
+    @GetMapping("/{restaurantId}")
+    public ResponseEntity<?> getRestaurant(@PathVariable Long restaurantId)
+    {
+        Restaurant restaurant =  restaurantService.getRestaurant(restaurantId);
+        return ResponseEntity.ok().body(RestaurantMapper.toRestaurantResponse(restaurant));
+    }
+
 }
 
    
