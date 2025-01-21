@@ -4,7 +4,6 @@ package food_delivery.service;
 import food_delivery.exception.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.*;
-import food_delivery.repository.OrderHistoryRepository;
 import food_delivery.repository.OrderRepository;
 import food_delivery.repository.OrderStatusRepository;
 import food_delivery.repository.OrderTrackingRepository;
@@ -29,7 +28,6 @@ public class OrderService {
 
     private final OrderTrackingRepository orderTrackingRepository;
     private final OrderStatusRepository orderStatusRepository;
-    private final OrderHistoryRepository orderHistoryRepository;
 
     @Transactional
     public Order createOrder(Long customerId , Long addressId) {
@@ -68,7 +66,7 @@ public class OrderService {
         //transfer cart items to order items
         transferCartToOrder(cart, order);
 
-        order.setTotalItemCount(cart.getItems().size());
+        order.setDistinctItemCount(cart.getItems().size());
 
         BigDecimal totalPrice = BigDecimal.valueOf(0);
         int totalItemQuantity = 0;
@@ -109,11 +107,7 @@ public class OrderService {
 		
 		OrderStatus orderStatus=order.getOrderStatus();
 		orderStatus.setStatusName("completed");
-		
-		//save OrderHistory
-		OrderHistory orderHistory =new OrderHistory();
-		orderHistory.setOrder(order);
-		orderHistoryRepository.save(orderHistory);
+
 		return order;
 	}
     
@@ -147,9 +141,9 @@ public class OrderService {
                 .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.ORDER_NOT_FOUND));
 
         // Check if the order is already canceled or completed or confirmed
-        if (order.getOrderStatus().getOrderStatusId() ==2
-                || order.getOrderStatus().getOrderStatusId() ==3
-                || order.getOrderStatus().getOrderStatusId() ==4) {
+        if (order.getOrderStatus().getId() ==2
+                || order.getOrderStatus().getId() ==3
+                || order.getOrderStatus().getId() ==4) {
             return false;
         }
         else {

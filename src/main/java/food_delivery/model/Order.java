@@ -19,8 +19,8 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long orderId;
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
@@ -29,14 +29,17 @@ public class Order implements Serializable {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
-    private int totalItemCount;
+    @Column(name = "distinct_item_count")
+    private Integer distinctItemCount;
 
-    private int totalItemQuantity;
+    @Column(name = "total_item_quantity")
+    private Integer totalItemQuantity;
 
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
     
     @ManyToOne
-    @JoinColumn(name = "order_status")
+    @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;
 
 
@@ -45,13 +48,11 @@ public class Order implements Serializable {
     private Restaurant restaurant;
     
     @ManyToOne
-    @JoinColumn(name = "address")
+    @JoinColumn(name = "delivery_address_id")
     private Address deliveryAddress;
 
     @OneToMany(mappedBy="order" , cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
-    
-
 
     @Column(name = "notes")
     private String notes;
@@ -66,6 +67,4 @@ public class Order implements Serializable {
         items.remove(orderItem);
         orderItem.setOrder(null);
     }
-
-
 }

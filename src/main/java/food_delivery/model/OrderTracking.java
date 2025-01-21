@@ -17,7 +17,7 @@ public class OrderTracking implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tracking_id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +31,7 @@ public class OrderTracking implements Serializable {
     @Column(name = "update_time", nullable = false)
     private LocalDateTime updateTime;
 
-    @Column(name = "currentLocation")
+    @Column(name = "current_location")
     private String currentLocation;
 
 }

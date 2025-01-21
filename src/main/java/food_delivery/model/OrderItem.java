@@ -17,8 +17,8 @@ import java.io.Serializable;
 public class OrderItem implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_item_id")
-	private Long orderItemId;
+	@Column(name = "id")
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
@@ -33,6 +33,4 @@ public class OrderItem implements Serializable {
 
     @Column(name = "price")
     private BigDecimal price;
-
-
 }

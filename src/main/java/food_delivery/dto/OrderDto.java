@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class OrderDto {
-    private Long orderId;
+    private Long id;
 
-    private int totalItemCount;
+    private int distinctItemCount;
 
     private int totalItemQuantity;
 

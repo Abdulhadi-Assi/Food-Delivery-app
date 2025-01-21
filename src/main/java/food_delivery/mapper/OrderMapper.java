@@ -16,9 +16,9 @@ public class OrderMapper {
                         .collect(Collectors.toList());
 
         OrderDto orderDto = OrderDto.builder()
-                .orderId(order.getOrderId())
+                .id(order.getId())
                 .totalItemQuantity(order.getTotalItemQuantity())
-                .totalItemCount(order.getTotalItemCount())
+                .distinctItemCount(order.getDistinctItemCount())
                 .totalPrice(order.getTotalPrice())
                 .items(orderItemDTOS)
                 .build();
