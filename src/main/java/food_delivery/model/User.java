@@ -23,8 +23,8 @@ public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -38,22 +38,12 @@ public class User implements Serializable, UserDetails {
     @Column(name = "phone_number", length = 20) // Increased length to accommodate various phone formats
     private String phoneNumber;
 
-    // Set the registrationDate in the constructor or service layer, not with @ColumnDefault
+
     @Column(name = "registration_date", nullable = false)
     private Instant registrationDate = Instant.now(); // Default to current timestamp
 
-    // Set lastLogin programmatically as well
-    @Column(name = "last_login")
-    private Instant lastLogin;
-
-    @Column(name = "login_type")
-    private Integer loginType;
-
     @Column(name = "is_enabled")
     private Boolean isEnabled;
-
-    @Column(name = "verification_code")
-    private String verificationCode;
 
     @OneToMany(fetch = FetchType.EAGER , mappedBy = "user")
     private List<UserRole> userRoles;

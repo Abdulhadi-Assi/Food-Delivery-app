@@ -26,7 +26,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void addRoleToUser(RoleEnum roleEnum, User user) {
         Role roleCustomer = roleRepository.findById(roleEnum.getCode())
                 .orElseThrow(() -> new BusinessException(ApplicationErrorEnum.ROLE_NOT_FOUND));
-        UserRole userRoleRole = new UserRole(new UserRoleId(user.getUserId(),roleCustomer.getRoleId()),user,roleCustomer);
+        UserRole userRoleRole = new UserRole(new UserRoleId(user.getId(),roleCustomer.getId()),user,roleCustomer);
         userRoleRepository.save(userRoleRole);
     }
 
@@ -34,6 +34,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public Set<GrantedAuthority> getUserRoles(Long userId){
-        return userRoleRepository.findByUser_userId(userId).stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getRoleName())).collect(Collectors.toSet());
+        return userRoleRepository.findByUser_id(userId).stream().map(userRole -> new SimpleGrantedAuthority(userRole.getRole().getRoleName())).collect(Collectors.toSet());
     }
 }
