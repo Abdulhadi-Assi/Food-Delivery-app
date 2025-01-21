@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuItemDTO {
-    private Long menuItemId;
+    private Long id;
     private String itemName;
     private BigDecimal price;
     private String description;

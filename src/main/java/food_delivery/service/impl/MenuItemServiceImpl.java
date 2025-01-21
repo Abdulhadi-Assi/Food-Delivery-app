@@ -28,11 +28,11 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Transactional
     public void reduceInventory(List<CartItem> itemList) {
         itemList.forEach(cartItem -> {
-            Long menuItemId = cartItem.getMenuItem().getMenuItemId();
+            Long menuItemId = cartItem.getMenuItem().getId();
             MenuItem menuItem = getMenuItem(menuItemId);
 
             if(menuItem.getQuantity() < cartItem.getQuantity()) {
-                throw new RuntimeException("not enough inventory for item with id: " + menuItem.getMenuItemId());
+                throw new RuntimeException("not enough inventory for item with id: " + menuItem.getId());
             }
             menuItem.setQuantity(menuItem.getQuantity() - cartItem.getQuantity());
             menuItemRepository.save(menuItem);
@@ -105,7 +105,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         // Save the menu item
         menuItemRepository.save(menuItem);
 
-        return new MenuItemResponse(menuItem.getMenuItemId(),
+        return new MenuItemResponse(menuItem.getId(),
                 menuItem.getItemName(),
                 menuItem.getPrice(),
                 menuItem.getDescription(),

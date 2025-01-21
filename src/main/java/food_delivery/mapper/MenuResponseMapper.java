@@ -27,7 +27,7 @@ public class MenuResponseMapper {
 
     private static MenuItemResponse toMenuItemResponse(MenuItem menuItem) {
         return new MenuItemResponse(
-                menuItem.getMenuItemId(),
+                menuItem.getId(),
                 menuItem.getItemName(),
                 menuItem.getPrice(),
                 menuItem.getDescription(),

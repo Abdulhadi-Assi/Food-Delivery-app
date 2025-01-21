@@ -9,7 +9,7 @@ public class MenuItemMapper {
     public static MenuItemDTO toDto(MenuItem menuItem)
     {
         MenuItemDTO menuItemDTO = new MenuItemDTO(
-                menuItem.getMenuItemId(),
+                menuItem.getId(),
                 menuItem.getItemName(),
                 menuItem.getPrice(),
                 menuItem.getDescription(),

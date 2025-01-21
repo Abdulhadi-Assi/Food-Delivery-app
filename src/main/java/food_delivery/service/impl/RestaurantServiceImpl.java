@@ -10,7 +10,6 @@ import food_delivery.service.RestaurantDetailsService;
 import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +77,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		for (Menu menu : restaurant.getMenus()){
 			List<MenuItem> menuItems = menuItemRepository.findByMenuId(menu.getId());
 			for (MenuItem menuItem : menuItems){
-				cartItemRepository.deleteAllByMenuItemId(menuItem.getMenuItemId());
+				cartItemRepository.deleteAllByMenuItemId(menuItem.getId());
 			}
 			menuItemRepository.deleteAllMenuItemsByRestaurantId(menu.getId());
 		}
