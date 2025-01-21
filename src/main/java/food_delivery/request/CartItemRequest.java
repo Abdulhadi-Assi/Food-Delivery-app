@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class AddToCartRequest {
+public class CartItemRequest {
     @NotNull
     private Long menuItemId;
 

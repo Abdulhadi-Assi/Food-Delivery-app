@@ -5,6 +5,7 @@ import food_delivery.dto.CartItemDTO;
 import food_delivery.dto.CartItemRequestDTO;
 import food_delivery.mapper.CartItemMapper;
 import food_delivery.model.Cart;
+import food_delivery.model.CartItem;
 import food_delivery.model.Customer;
 import food_delivery.model.MenuItem;
 import food_delivery.repository.CartRepository;
@@ -94,5 +95,16 @@ public class CartServiceImpl implements CartService {
         cart.addItem(menuItem, quantity);
 
         cartRepository.save(cart);
+    }
+    public void addItem(Cart cart,MenuItem menuItem,Integer quantity) {
+        var existingItem = cart.getItems().stream()
+                .filter(item -> item.getMenuItem().equals(menuItem))
+                .findFirst();
+
+        if (existingItem.isPresent()) {
+            existingItem.get().setQuantity(quantity);
+        } else {
+            cart.getItems().add(new CartItem(null , cart,menuItem,quantity,menuItem.getPrice()));
+        }
     }
 }
