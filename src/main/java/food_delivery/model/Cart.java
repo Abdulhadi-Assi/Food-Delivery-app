@@ -47,4 +47,16 @@ public class Cart implements Serializable {
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> items;
+
+    public void addItem(MenuItem menuItem, Integer quantity) {
+        var existingItem = items.stream()
+                .filter(item -> item.getMenuItem().equals(menuItem))
+                .findFirst();
+
+        if (existingItem.isPresent()) {
+            existingItem.get().setQuantity(existingItem.get().getQuantity() + quantity);
+        } else {
+            items.add(new CartItem(null , this,menuItem,quantity,menuItem.getPrice()));
+        }
+    }
 }

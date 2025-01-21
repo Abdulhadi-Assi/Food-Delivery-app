@@ -32,9 +32,7 @@ public class OrderService {
     @Transactional
     public Order createOrder(Long customerId , Long addressId) {
 
-        Customer customer = customerService.getCustomerById(customerId).orElseThrow(
-                ()-> new RuntimeException("customer does not exist")
-        );
+        Customer customer = customerService.getCustomerById(customerId);
         Cart cart = cartService.getCustomerCart(customerId);
 
         //create new order

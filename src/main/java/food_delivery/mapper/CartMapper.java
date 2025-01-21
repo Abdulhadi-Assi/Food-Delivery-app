@@ -7,6 +7,7 @@ public class CartMapper {
 	
 	
 	public  static CartDTO toDTO (Cart cart) {
+		if(cart== null)return null;
 		
 		return CartDTO.builder().id(cart.getId()).build() ;
 	}
