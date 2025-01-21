@@ -44,14 +44,13 @@ public class OrderService {
         //set order address
         order.setDeliveryAddress(
                 customer.getAddresses().stream()
-                .filter(address -> address.getAddressId().equals(addressId))
+                .filter(address -> address.getId().equals(addressId))
                 .findFirst()
                 .orElseThrow(()-> new RuntimeException("address not found"))
         );
 
-        // set restaurant as provider of first menu item ordered
-        // cart should have only orders from same restaurant
-//        order.setRestaurant(cart.getCartItems().get(0).getMenuItem().getMenu().getRestaurant());
+        // set the restaurant as provider of first menu item ordered
+        // cart should have only orders from the same restaurant
 
         CartItem firstItem = cart.getItems().stream().findFirst().orElseThrow(()->new RuntimeException("cart is empty"));
         Restaurant restaurant = firstItem.getMenuItem().getMenu().getRestaurant();
@@ -114,7 +113,7 @@ public class OrderService {
     private void transferCartToOrder(Cart cart , Order order) {
 
         List<CartItem> itemList = cart.getItems();
-        if(itemList.isEmpty())throw new RuntimeException("cart is empty");
+        if(itemList.isEmpty())throw new BusinessException(ApplicationErrorEnum.CART_IS_EMPTY);
 
         menuItemService.reduceInventory(itemList);
 

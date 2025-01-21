@@ -16,8 +16,8 @@ import java.io.Serializable;
 public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    private Long addressId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "city")
     private String city;
@@ -25,22 +25,22 @@ public class Address implements Serializable {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "postalCode")
+    @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "addressLine1" )
+    @Column(name = "address_line_1")
     private String addressLine1;
 
-    @Column(name = "ADDRESSLINE2" , nullable = true)
+    @Column(name = "address_line_2")
     private String addressLine2;
-    
+
+    @JsonIgnore
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    
-    
 }

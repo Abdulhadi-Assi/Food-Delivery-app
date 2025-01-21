@@ -28,7 +28,7 @@ public class Restaurant implements Serializable {
     private RestaurantDetails restaurantDetails;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToMany(mappedBy ="restaurant" , fetch = FetchType.LAZY)
