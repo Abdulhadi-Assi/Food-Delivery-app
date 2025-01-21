@@ -40,6 +40,7 @@ public class SecurityBeansConfig {
         return source;
     }
 
+    @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username).orElseThrow(() -> new BusinessException(ApplicationErrorEnum.USER_NOT_FOUND));
     }
