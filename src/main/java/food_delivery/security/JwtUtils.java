@@ -2,7 +2,7 @@ package food_delivery.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import food_delivery.exception.ApplicationErrorEnum;
+import food_delivery.enumeration.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.User;
 import food_delivery.service.UserRoleService;

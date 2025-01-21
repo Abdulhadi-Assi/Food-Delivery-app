@@ -1,7 +1,7 @@
 package food_delivery.service.impl;
 
 import food_delivery.dto.RestaurantOwnerDTO;
-import food_delivery.exception.ApplicationErrorEnum;
+import food_delivery.enumeration.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.CartItem;
 import food_delivery.model.Menu;

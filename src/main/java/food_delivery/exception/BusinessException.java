@@ -1,18 +1,18 @@
 package food_delivery.exception;
 
+import food_delivery.enumeration.ApplicationErrorEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
 public class BusinessException extends RuntimeException{
 
-    private ApplicationErrorEnum applicationErrorEnum;
+    private final ApplicationErrorEnum applicationErrorEnum;
+
     public BusinessException(ApplicationErrorEnum applicationErrorEnum ) {
         super(applicationErrorEnum.getMessage());
         this.applicationErrorEnum= applicationErrorEnum;
-
     }
 }

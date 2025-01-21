@@ -1,7 +1,7 @@
 package food_delivery.service;
 
 
-import food_delivery.exception.ApplicationErrorEnum;
+import food_delivery.enumeration.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.model.*;
 import food_delivery.repository.OrderRepository;

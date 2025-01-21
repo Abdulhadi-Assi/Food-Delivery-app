@@ -1,4 +1,4 @@
-package food_delivery.exception;
+package food_delivery.enumeration;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

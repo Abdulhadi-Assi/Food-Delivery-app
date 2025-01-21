@@ -1,7 +1,7 @@
 package food_delivery.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import food_delivery.exception.ApplicationErrorEnum;
+import food_delivery.enumeration.ApplicationErrorEnum;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.oauth2.jwt.Jwt;
 import io.jsonwebtoken.Jwts;
@@ -18,19 +18,19 @@ public class JwtCustomUtils implements JwtDecoder{
     @Value("${security.jwt.issuer}")
     private String serverIssuer;
 
-    private final JwtUtils  JwtUtil;
+    private final JwtUtils jwtUtils;
 
     private final ObjectMapper objectMapper; // Inject the ObjectMapper
 
     @Autowired
-    public JwtCustomUtils(JwtUtils JwtUtil, ObjectMapper objectMapper) {
-        this.JwtUtil = JwtUtil;
+    public JwtCustomUtils(JwtUtils jwtUtils, ObjectMapper objectMapper) {
+        this.jwtUtils = jwtUtils;
         this.objectMapper = objectMapper;
     }
 
     @Override
     public Jwt decode(String token) throws JwtException {
-        String issuer = JwtUtil.extractIssuerFromToken(token , objectMapper);
+        String issuer = jwtUtils.extractIssuerFromToken(token , objectMapper);
         if (issuer.contains(serverIssuer)) {
             return decodeJwt(token);
         } else {
@@ -40,9 +40,9 @@ public class JwtCustomUtils implements JwtDecoder{
 
 
     private Jwt decodeJwt(String token) throws JwtException {
-        if (JwtUtil.validateToken(token)) {
+        if (jwtUtils.validateToken(token)) {
             Claims claims = Jwts.parser()
-                    .setSigningKey(JwtUtil.getSecretKey())
+                    .setSigningKey(jwtUtils.getSecretKey())
                     .parseClaimsJws(token)
                     .getBody();
 

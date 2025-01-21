@@ -1,6 +1,6 @@
 package food_delivery.config;
 
-import food_delivery.exception.ApplicationErrorEnum;
+import food_delivery.enumeration.ApplicationErrorEnum;
 import food_delivery.exception.BusinessException;
 import food_delivery.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
