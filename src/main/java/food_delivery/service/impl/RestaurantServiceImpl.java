@@ -9,7 +9,7 @@ import food_delivery.service.AddressService;
 import food_delivery.service.RestaurantDetailsService;
 import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
-simport food_delivery.specifications.RestaurantSpecifications;
+import food_delivery.specifications.RestaurantSpecifications;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
