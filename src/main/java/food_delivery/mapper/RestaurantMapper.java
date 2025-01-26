@@ -1,5 +1,6 @@
 package food_delivery.mapper;
 
+import food_delivery.dto.RestaurantDTO;
 import food_delivery.model.Restaurant;
 import food_delivery.request.AddressRequest;
 import food_delivery.request.RestaurantDetailsRequest;
@@ -16,5 +17,9 @@ public class RestaurantMapper {
         AddressRequest addressRequest = AddressMapper.toAddressRequest(restaurant.getAddress());
 
         return new RestaurantResponse(restaurant.getId(),restaurant.getName(),restaurantDetailsRequest,addressRequest,restaurant.getPhoneNumber());
+    }
+
+    public static RestaurantDTO convertToDTO(Restaurant restaurant) {
+        return new RestaurantDTO(restaurant);
     }
 }

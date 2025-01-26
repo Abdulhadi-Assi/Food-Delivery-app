@@ -9,7 +9,12 @@ import food_delivery.service.AddressService;
 import food_delivery.service.RestaurantDetailsService;
 import food_delivery.request.UpdateRestaurantRequest;
 import food_delivery.service.RestaurantService;
+simport food_delivery.specifications.RestaurantSpecifications;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,5 +109,34 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public Restaurant getRestaurant(Long restaurantId) {
 		return restaurantRepository.findById(restaurantId)
 				.orElseThrow(()-> new BusinessException(ApplicationErrorEnum.RESTAURANT_NOT_FOUND));
+	}
+
+	@Override
+	public Page<Restaurant> searchRestaurants(
+			String name,
+			String description,
+			Double latitude,
+			Double longitude,
+			Double radius,
+			int page,
+			int size
+	) {
+        
+		Specification<Restaurant> spec = Specification.where(null);
+
+		if (name != null && !name.trim().isEmpty()) {
+			spec = spec.and(RestaurantSpecifications.hasName(name));
+		}
+
+		if (description != null && !description.trim().isEmpty()) {
+			spec = spec.and(RestaurantSpecifications.hasDescription(description));
+		}
+
+		if (latitude != null && longitude != null && radius != null) {
+			spec = spec.and(RestaurantSpecifications.withinRadius(latitude, longitude, radius));
+		}
+
+		Pageable pageable = PageRequest.of(page, size);
+		return restaurantRepository.findAll(spec, pageable);
 	}
 }
