@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 import java.io.Serializable;
 
 
@@ -39,4 +40,7 @@ public class Restaurant implements Serializable {
 
     @Column(name = "deleted", nullable = false)
     private boolean deleted = false; // Default to false
+
+    @Column(columnDefinition = "geography(Point, 4326)")
+    private Point location;
 }
