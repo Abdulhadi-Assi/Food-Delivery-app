@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @Entity
 @Table(name = "\"user\"")
+@Builder
 public class User implements Serializable, UserDetails {
 
     @Id
@@ -28,6 +30,12 @@ public class User implements Serializable, UserDetails {
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
 
     @Column(name = "password_hash", length = 60)
     private String passwordHash;
@@ -45,7 +53,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "is_enabled")
     private Boolean isEnabled;
 
-    @OneToMany(fetch = FetchType.EAGER , mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER , mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserRole> userRoles;
 
 
